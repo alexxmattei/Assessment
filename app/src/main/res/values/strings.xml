@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Assessment</string>
+    <string name="internet_not_connected">No internet connection</string>
+    <string name="internet_connection_restored">Internet connection restored</string>
+    <string name="internet_not_connected_no_data">No internet connection, search will not work</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="github_users">Github users</string>
+    <string name="search_by_nickname">Search by nickname</string>
+
+    <!-- Content descriptions -->
+    <string name="search_icon">Search Icon</string>
+    <string name="user_profile_image">User Profile Image</string>
+</resources>
