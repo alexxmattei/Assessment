@@ -13,14 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ConnectivityRepositoryImpl @Inject constructor(
-    private val appContext: Context
+    appContext: Context
 ): ConnectivityRepository {
 
     private val connectivityManager =
         appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     override fun observe(): Flow<ConnectivityRepository.Status> {
-        return callbackFlow {
+        return callbackFlow<ConnectivityRepository.Status> {
             val callback = object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)

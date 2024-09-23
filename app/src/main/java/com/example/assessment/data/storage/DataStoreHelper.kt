@@ -1,6 +1,7 @@
 package com.example.assessment.data.storage
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -36,8 +37,10 @@ class DataStoreHelper(
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
+                    Log.e("DATASTORE_IO_ERROR", "I/O Error when reading from datastore: $exception")
                     emit(emptyPreferences())
                 } else {
+                    Log.e("DATASTORE_IO_ERROR", "Error when reading from datastore: $exception")
                     throw exception
                 }
             }

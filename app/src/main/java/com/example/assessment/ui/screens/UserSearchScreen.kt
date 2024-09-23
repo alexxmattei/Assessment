@@ -3,6 +3,7 @@ package com.example.assessment.ui.screens
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,19 +36,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.assessment.R
-import com.example.assessment.domain.repository.ConnectivityRepository
 
 @Composable
 fun UserSearchScreen(
     state: UserSearchState,
     onSearchQueryChange: (String) -> Unit,
-    connectivityStatus: ConnectivityRepository.Status,
     contentPadding: PaddingValues
 ) {
     Column(
@@ -65,16 +66,37 @@ fun UserSearchScreen(
                 .padding(8.dp)
                 .fillMaxWidth()
         )
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            contentPadding = contentPadding
-        ) {
-            items(state.users) { user ->
-                UserSearchItem(
-                    userProfile = user
+        if(state.users.isEmpty()) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    modifier = Modifier.size(32.dp),
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(R.string.users_screen_empty_state_icon)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    modifier = Modifier.padding(16.dp),
+                    text = stringResource(R.string.users_screen_empty_state),
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentPadding = contentPadding
+            ) {
+                items(state.users) { user ->
+                    UserSearchItem(
+                        userProfile = user
+                    )
+                }
             }
         }
     }

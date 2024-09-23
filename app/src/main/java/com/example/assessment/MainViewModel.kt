@@ -30,15 +30,22 @@ class MainViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val userSearchManager: UserSearchManager,
     private val dataStoreHelper: DataStoreHelper,
-    connectivityRepository: ConnectivityRepository
-): ViewModel() {
+    private val connectivityRepository: ConnectivityRepository
+) : ViewModel() {
     var state by mutableStateOf(UserSearchState())
-    var isNetworkConnected = connectivityRepository.observe()
+    var networkState by mutableStateOf(ConnectivityRepository.Status.Unchecked)
     private var searchJob: Job? = null
 
     init {
         initializeSearchManager()
         loadUserData()
+        observeNetworkState()
+    }
+
+    private fun observeNetworkState() = viewModelScope.launch {
+        connectivityRepository.observe().collect { status ->
+            networkState = status
+        }
     }
 
     fun loadUserData() {
@@ -48,24 +55,22 @@ class MainViewModel @Inject constructor(
                 error = null
             )
 
-            isNetworkConnected.collect { networkState ->
-                Log.i("NETWORK_STATE", "Network state is: ${networkState.name}")
-                when(networkState) {
-                    ConnectivityRepository.Status.Available -> {
-                        getRemoteUsers()
-                    }
-                    else -> {
-                        getLocalUsers()
-                    }
+            Log.i("NETWORK_STATE", "Network state is: ${networkState.name}")
+            when (networkState) {
+                ConnectivityRepository.Status.Available -> {
+                    getRemoteUsers()
+                }
+
+                else -> {
+                    getLocalUsers()
                 }
             }
-
         }
     }
 
     private suspend fun getRemoteUsers() {
         userRepository.getAllUsers().let { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
                     Log.i("GET_REMOTE_USERS_STATUS", "Get remote users status is SUCCESS")
                     val userProfiles: MutableList<UserProfileModel> = mutableListOf()
@@ -80,7 +85,10 @@ class MainViewModel @Inject constructor(
                             it.data?.toUserProfileUiModel(UserSearchManager.USERS_NAMESPACE)
                         } ?: emptyList()
                     }
-                    Log.i("GET_REMOTE_USERS_CALLED", "Retrieved these users from github: $userProfiles")
+                    Log.i(
+                        "GET_REMOTE_USERS_CALLED",
+                        "Retrieved these users from github: $userProfiles"
+                    )
                     userSearchManager.putUsers(userUiProfiles)
                     dataStoreHelper.saveUsers(userProfiles)
                     state = state.copy(
@@ -89,6 +97,7 @@ class MainViewModel @Inject constructor(
                         error = null
                     )
                 }
+
                 is Resource.Error -> {
                     Log.i("GET_REMOTE_USERS_STATUS", "Get remote users status is ERROR")
                     getLocalUsers(result.message)

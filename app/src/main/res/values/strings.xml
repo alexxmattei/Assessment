@@ -3,11 +3,14 @@
     <string name="internet_not_connected">No internet connection</string>
     <string name="internet_connection_restored">Internet connection restored</string>
     <string name="internet_not_connected_no_data">No internet connection, search will not work</string>
+    <string name="syncing_users">Syncing users</string>
     <string name="dismiss">Dismiss</string>
     <string name="github_users">Github users</string>
     <string name="search_by_nickname">Search by nickname</string>
+    <string name="users_screen_empty_state">No users were found, connect to the internet or increase your api quota in order to refresh users</string>
 
     <!-- Content descriptions -->
     <string name="search_icon">Search Icon</string>
     <string name="user_profile_image">User Profile Image</string>
+    <string name="users_screen_empty_state_icon">No Users Found Icon</string>
 </resources>
