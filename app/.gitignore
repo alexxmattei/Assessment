@@ -1,1 +1,80 @@
-/build
+# Gradle files
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Android Studio specific files
+.idea/
+*.iml
+
+# User-specific configurations
+*.hprof
+*.log
+
+# Java class files
+*.class
+
+# Generated files
+*.apk
+*.ap_
+*.dex
+*.so
+*.jar
+*.war
+*.ear
+
+# Keystore files
+*.jks
+*.keystore
+
+# NDK files
+*.o
+*.a
+*.so
+
+# Misc
+.DS_Store
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# Android Studio captures
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Android App Bundles
+*.aab
+
+# Other files to ignore
+*.orig
+*.bak
+*.swp
+*.swo
+*.class
+
+# Jetpack Compose related
+**/compose/
+
+# .idea files
+.idea/*
+!*.iml
+
+# Firebase and Google services
+google-services.json
+*.firebase
+
+# Other IDE specific files
+*.log
+*.aux
+*.out
+*.gz
+*.zip
+*.tgz
+*.tar
+*.rar
