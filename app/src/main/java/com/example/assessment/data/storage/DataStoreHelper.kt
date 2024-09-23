@@ -46,6 +46,7 @@ class DataStoreHelper(
             }
             .map { preferences ->
                 val jsonString = preferences[USER_LIST_KEY] ?: ""
+                println("DataStoreData: $jsonString")
                 if (jsonString.isNotEmpty()) {
                     val type = object : TypeToken<List<UserProfileModel>>() {}.type
                     gson.fromJson(jsonString, type)

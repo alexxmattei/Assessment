@@ -60,7 +60,7 @@ class UserSearchManager(
     suspend fun searchUserProfiles(query: String): List<UserProfileUiModel> {
         return withContext(Dispatchers.IO) {
             val searchSpec = SearchSpec.Builder()
-                .setSnippetCount(10)
+                .setSnippetCount(20)
                 .addFilterNamespaces(USERS_NAMESPACE)
                 .setRankingStrategy(SearchSpec.RANKING_STRATEGY_USAGE_COUNT)
                 .build()
@@ -69,7 +69,7 @@ class UserSearchManager(
                 searchSpec
             ) ?: return@withContext emptyList()
 
-            val page = result.nextPageAsync.get()
+            val page = result.nextPageAsync.get().toList().filterNotNull()
 
             page.mapNotNull {
                 if(it.genericDocument.schemaType == UserProfileUiModel::class.java.simpleName) {

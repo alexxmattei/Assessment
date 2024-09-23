@@ -12,5 +12,5 @@ fun UserDto.toUserModel(): UserModel = UserModel(
 fun UserProfileDto.toUserProfileModel(): UserProfileModel = UserProfileModel(
     username = this.login,
     name = this.name ?: "",
-    url = this.avatarUrl
+    url = this.avatarUrl ?: ""
 )

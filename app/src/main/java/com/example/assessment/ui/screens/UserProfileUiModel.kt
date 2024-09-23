@@ -26,6 +26,6 @@ fun UserProfileModel.toUserProfileUiModel(namespace: String) = UserProfileUiMode
     id = UUID.randomUUID().toString(), // local id for search indexing
     score = 1,
     username = this.username,
-    name = this.name,
-    url = this.url
+    name = this.name ?: "",
+    url = this.url ?: ""
 )
