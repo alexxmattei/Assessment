@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is an Android application that showcases [brief description of the project].
+Uses AppSearch for dynamic search using saved users. Creates backup copy using DataStore when internet connection is unstable or offline.
 
 ## Tools and Versions
 
@@ -21,13 +21,12 @@ This project is an Android application that showcases [brief description of the 
 - **Gradle Version**: 8.7
 
 ### Other Libraries
-- **Glide**: [version]
-- **Retrofit**: [version]
-- **Dagger Hilt**: [version]
+- **Glide**
+- **Retrofit**
+- **Dagger Hilt** 
 - 
 ### Also uses
 - **DataStore**
-- **Gson**: [version]
-- **AndroidX Libraries**: [version]
+- **Gson**
+- **AndroidX Libraries**
 
-Uses AppSearch for dynamic search using saved users. Creates backup copy using DataStore when internet connection is unstable or offline. 
