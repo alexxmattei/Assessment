@@ -23,8 +23,8 @@ Uses AppSearch for dynamic search using saved users. Creates backup copy using D
 ### Other Libraries
 - **Glide**
 - **Retrofit**
-- **Dagger Hilt** 
-- 
+- **Dagger Hilt**
+  
 ### Also uses
 - **DataStore**
 - **Gson**
